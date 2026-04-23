@@ -81,7 +81,7 @@ export default function LandingPage() {
               </h1>
 
               <p className="mt-5 text-lg text-muted-foreground max-w-lg leading-relaxed">
-                Browse verified internships across tech, design, marketing, and more — filtered by location, stipend, and skills. No account, no friction.
+                Browse verified internships across tech, design, marketing, and more — filtered by location and skills. No account, no friction.
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -166,7 +166,7 @@ export default function LandingPage() {
             <div>
               <h3 className="text-lg font-bold text-foreground">Smart filters, instant results</h3>
               <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
-                Filter by location (remote or city), stipend range (₹0–₹25K+), and required skills like React, Figma, or Python. Results update instantly — no page reloads.
+                Filter by location (remote or city) and required skills like React, Figma, or Python. Results update instantly — no page reloads.
               </p>
               <Link
                 href="/internship-listings"

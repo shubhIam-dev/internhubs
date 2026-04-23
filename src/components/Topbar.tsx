@@ -1,62 +1,47 @@
 import React from 'react';
-import AppLogo from '@/components/ui/AppLogo';
-import { Briefcase, ExternalLink, Home } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Topbar() {
+  const navLinks = [
+    { label: 'QUESTIONS', href: '#' },
+    { label: 'FLASHCARDS', href: '#' },
+    { label: 'ASSIGNMENTS', href: '#' },
+    { label: 'EXPERIENCES', href: '#' },
+    { label: 'SELF APPLY', href: '#', isHighlight: true },
+    { label: 'INSIDERS', href: '#' },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-white border-b border-border shadow-sm">
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 h-16 flex items-center justify-between gap-4">
-        {/* Logo + Brand */}
-        <div className="flex items-center gap-4 flex-shrink-0">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors font-medium group"
-          >
-            <Home size={14} className="group-hover:text-primary transition-colors" />
-            <span className="hidden sm:inline">Home</span>
-          </Link>
-          <div className="w-px h-5 bg-border" />
-          <div className="flex items-center gap-2">
-            <AppLogo size={36} />
-            <div className="flex flex-col leading-none">
-              <span className="font-bold text-[18px] tracking-tight text-foreground">
-                InternHub
-              </span>
-              <span className="text-[11px] text-muted-foreground font-medium tracking-wide hidden sm:block">
-                powered by Newton School of Technology
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Center nav hint */}
-        <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground">
-          <Briefcase size={15} className="text-primary" />
-          <span className="font-medium">
-            Explore open internships — no account needed
+    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-1 group">
+          <span className="text-2xl font-black tracking-tighter text-gray-900">
+            Intern<span className="text-red-500">Hub</span>
           </span>
-        </div>
+        </Link>
 
-        {/* Right actions */}
-        <div className="flex items-center gap-3 flex-shrink-0">
-          <a
-            href="https://linkedin.com/jobs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-150 group"
-          >
-            <span>LinkedIn Jobs</span>
-            <ExternalLink
-              size={13}
-              className="group-hover:text-primary transition-colors"
-            />
-          </a>
-          <div className="w-px h-5 bg-border hidden sm:block" />
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            Live Listings
-          </span>
+        {/* Navigation */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className={`text-[11px] font-black tracking-[0.15em] transition-all duration-200 hover:text-red-500 ${link.isHighlight
+                  ? 'px-5 py-2.5 rounded-full bg-red-50 text-red-500 hover:bg-red-100'
+                  : 'text-gray-400'
+                }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Auth */}
+        <div className="flex items-center gap-4">
+          <button className="px-8 py-3 rounded-full bg-[#FF4D4D] text-white text-[11px] font-black tracking-[0.15em] hover:bg-[#FF3333] transition-all shadow-[0_8px_20px_-6px_rgba(255,77,77,0.4)] active:scale-95">
+            SIGN IN
+          </button>
         </div>
       </div>
     </header>

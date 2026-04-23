@@ -4,7 +4,7 @@
 //   return res.json();
 
 export type InternshipCategory =
-  | 'tech' |'finance' |'design' |'marketing' |'operations' |'data' |'legal' |'hr';
+  | 'tech' | 'finance' | 'design' | 'marketing' | 'operations' | 'data' | 'legal' | 'hr';
 
 export type InternshipType = 'full-time' | 'part-time' | 'remote' | 'hybrid';
 
@@ -312,17 +312,18 @@ export const TYPES: { value: InternshipType | 'all'; label: string }[] = [
 export const LOCATIONS: string[] = [
   'All Locations',
   'Remote',
-  'San Francisco, CA',
-  'New York, NY',
-  'Austin, TX',
-  'Boston, MA',
-  'Chicago, IL',
-  'London, UK',
+  'Bangalore',
+  'Hyderabad',
+  'Pune',
+  'Mumbai',
+  'New Delhi',
+  'Chennai',
+  'Gurgaon',
 ];
 
 export const DURATIONS: { value: string; label: string }[] = [
-  { value: 'all', label: 'Any Duration' },
-  { value: '8', label: 'Up to 8 weeks' },
-  { value: '12', label: 'Up to 12 weeks' },
-  { value: '16', label: '16+ weeks' },
+  { value: 'all', label: 'All Durations' },
+  { value: '1-2', label: '1-2 Months' },
+  { value: '3-4', label: '3-4 Months' },
+  { value: '6', label: '6+ Months' },
 ];

@@ -60,169 +60,113 @@ export default function InternshipCard({ internship }: InternshipCardProps) {
 
   return (
     <article
-      className={`group bg-white rounded-xl border transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 flex flex-col ${
-        isUrgent
+      className={`group bg-white rounded-xl border transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 flex flex-col ${isUrgent
           ? 'border-red-200 hover:border-red-300'
           : isExpired
-          ? 'border-gray-200 opacity-70' :'border-border hover:border-primary/30'
-      }`}
+            ? 'border-gray-200 opacity-70' : 'border-border hover:border-primary/30'
+        }`}
     >
       <div className="p-5 flex-1 flex flex-col">
         {/* Header row */}
-        <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
             {/* Company logo */}
-            <div className="w-11 h-11 rounded-lg border border-border bg-gray-50 overflow-hidden flex-shrink-0 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl border border-border/40 bg-gray-50/50 overflow-hidden flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-105">
               <AppImage
                 src={internship.companyLogo}
                 alt={internship.companyLogoAlt}
-                width={44}
-                height={44}
-                className="w-full h-full object-contain p-1"
+                width={48}
+                height={48}
+                className="w-full h-full object-contain p-1.5"
                 fallbackSrc="/assets/images/no_image.png"
               />
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-foreground truncate leading-tight">
+              <p className="text-sm font-bold text-foreground truncate leading-tight tracking-tight">
                 {internship.company}
               </p>
-              <p className="text-xs text-muted-foreground truncate font-mono">
-                #{internship.id}
-              </p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <MapPin size={10} className="text-muted-foreground/50" />
+                <span className="text-[10px] text-muted-foreground/60 font-medium truncate">
+                  {internship.location}
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Badges — top right */}
           <div className="flex items-center gap-1.5 flex-shrink-0">
             {internship.isNew && !isExpired && (
-              <Badge variant="new">
-                <span className="w-1 h-1 rounded-full bg-green-500" />
+              <Badge variant="new" className="h-5 px-1.5 text-[9px] uppercase tracking-wider font-bold">
                 New
               </Badge>
             )}
-            {isUrgent && (
-              <Badge variant="urgent">
-                <AlertCircle size={10} />
-                {daysLeft}d left
-              </Badge>
-            )}
-            {isExpired && <Badge variant="closed">Closed</Badge>}
-            {internship.status === 'open' && !isUrgent && !isExpired && (
-              <Badge variant="open">Open</Badge>
-            )}
+            {isExpired && <Badge variant="closed" className="h-5 px-1.5 text-[9px] uppercase tracking-wider font-bold">Closed</Badge>}
           </div>
         </div>
 
         {/* Role title */}
-        <h3 className="text-[15px] font-semibold text-foreground mb-2.5 line-clamp-2 leading-snug group-hover:text-primary transition-colors duration-150">
+        <h3 className="text-base font-bold text-foreground mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors duration-200">
           {internship.title}
         </h3>
 
-        {/* Category + Type badges */}
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          <Badge variant={internship.category as any}>
-            {categoryLabelMap[internship.category]}
-          </Badge>
-          <Badge variant={internship.type as any}>
-            {typeLabelMap[internship.type]}
-          </Badge>
-        </div>
-
-        {/* Description */}
-        <p className="text-xs text-muted-foreground line-clamp-2 mb-3 leading-relaxed">
-          {internship.description}
-        </p>
-
-        {/* Meta grid */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 mb-3 text-xs text-muted-foreground">
-          <div className="flex items-center gap-1.5 truncate">
-            <MapPin size={12} className="text-muted-foreground/70 flex-shrink-0" />
-            <span className="truncate">{internship.location}</span>
+        {/* Meta info grid - Minimal */}
+        <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
+          <div className="flex items-center gap-1.5">
+            <div className="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+              <Clock size={12} className="text-blue-500" />
+            </div>
+            <span className="text-xs font-semibold text-gray-700">{internship.duration}</span>
           </div>
-          <div className="flex items-center gap-1.5 truncate">
-            <Clock size={12} className="text-muted-foreground/70 flex-shrink-0" />
-            <span className="truncate">{internship.duration}</span>
-          </div>
-          <div className="flex items-center gap-1.5 truncate">
-            <DollarSign size={12} className="text-green-600 flex-shrink-0" />
-            <span className="truncate font-medium text-green-700">{internship.stipend}</span>
-          </div>
-          <div className="flex items-center gap-1.5 truncate">
-            <Users size={12} className="text-muted-foreground/70 flex-shrink-0" />
-            <span className="truncate">
-              {internship.openings} opening{internship.openings !== 1 ? 's' : ''}
-            </span>
+          <div className="flex items-center gap-1.5">
+            <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0">
+              <DollarSign size={12} className="text-green-600" />
+            </div>
+            <span className="text-xs font-semibold text-green-700">{internship.stipend}</span>
           </div>
         </div>
 
-        {/* Skills */}
-        <div className="flex flex-wrap gap-1 mb-4">
-          {internship.skills.slice(0, 4).map((skill) => (
+        {/* Skills - Pill style */}
+        <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
+          {internship.skills.slice(0, 3).map((skill) => (
             <span
               key={`skill-${internship.id}-${skill}`}
-              className="px-2 py-0.5 rounded-md bg-muted text-[11px] text-muted-foreground font-medium"
+              className="px-2.5 py-1 rounded-full bg-gray-50 border border-gray-100 text-[10px] text-gray-600 font-bold uppercase tracking-wider"
             >
               {skill}
             </span>
           ))}
-          {internship.skills.length > 4 && (
-            <span className="px-2 py-0.5 rounded-md bg-muted text-[11px] text-muted-foreground font-medium">
-              +{internship.skills.length - 4}
+          {internship.skills.length > 3 && (
+            <span className="px-2.5 py-1 rounded-full bg-gray-50 border border-gray-100 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+              +{internship.skills.length - 3}
             </span>
           )}
         </div>
-
-        {/* Deadline */}
-        <div className={`flex items-center gap-1.5 text-xs mb-4 ${
-          isUrgent ? 'text-red-600 font-medium' : 'text-muted-foreground'
-        }`}>
-          <Calendar size={12} className="flex-shrink-0" />
-          <span>
-            {isExpired
-              ? 'Deadline passed'
-              : isUrgent
-              ? `Deadline: ${formatDate(internship.deadline)} — ${daysLeft} days left!`
-              : `Apply by ${formatDate(internship.deadline)}`}
-          </span>
-        </div>
       </div>
 
-      {/* Footer CTA */}
-      <div className="px-5 pb-4 flex items-center justify-between gap-3 pt-3 border-t border-border/60">
-        <div className="text-[11px] text-muted-foreground">
-          Posted {formatDate(internship.postedDate)}
+      {/* Footer CTA - Minimalist */}
+      <div className="px-5 py-4 flex items-center justify-between gap-3 bg-gray-50/30 rounded-b-xl border-t border-border/30">
+        <div className="flex flex-col">
+          <span className="text-[10px] text-muted-foreground/60 font-bold uppercase tracking-widest leading-none mb-1">
+            {isExpired ? 'Closed' : isUrgent ? 'Closing soon' : 'Deadline'}
+          </span>
+          <span className={`text-[11px] font-bold ${isUrgent ? 'text-red-500' : 'text-gray-600'}`}>
+            {isExpired ? formatDate(internship.deadline) : isUrgent ? `${daysLeft}d left` : formatDate(internship.deadline)}
+          </span>
         </div>
-        <div className="flex items-center gap-2">
-          {/* Save button */}
-          <button
-            onClick={() => setSaved((s) => !s)}
-            title={saved ? 'Remove from saved' : 'Save internship'}
-            className={`p-1.5 rounded-lg border transition-all duration-150 active:scale-95 ${
-              saved
-                ? 'bg-primary/10 border-primary/30 text-primary' :'bg-background border-border text-muted-foreground hover:border-primary/30 hover:text-primary'
-            }`}
-            aria-label={saved ? 'Remove from saved' : 'Save this internship'}
-          >
-            {saved ? <BookmarkCheck size={14} /> : <Bookmark size={14} />}
-          </button>
 
-          {/* Apply button */}
-          <a
-            href={internship.applyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 active:scale-95 ${
-              isExpired
-                ? 'bg-muted text-muted-foreground cursor-not-allowed pointer-events-none'
-                : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md'
+        <a
+          href={internship.applyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-bold transition-all duration-200 active:scale-95 shadow-sm ${isExpired
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
+              : 'bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-md hover:shadow-primary/10'
             }`}
-            onClick={(e) => isExpired && e.preventDefault()}
-            aria-disabled={isExpired}
-          >
-            {isExpired ? 'Closed' : 'Apply Now'}
-            {!isExpired && <ExternalLink size={11} />}
-          </a>
-        </div>
+        >
+          {isExpired ? 'Expired' : 'Apply Now'}
+          {!isExpired && <ExternalLink size={12} className="opacity-80" />}
+        </a>
       </div>
     </article>
   );

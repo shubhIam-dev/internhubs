@@ -1,92 +1,60 @@
 import React from 'react';
 import Topbar from '@/components/Topbar';
 import ListingsPageClient from './components/ListingsPageClient';
-import { Briefcase, GraduationCap, TrendingUp } from 'lucide-react';
+import { RotateCcw, Sparkles } from 'lucide-react';
 
 export default function InternshipListingsPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Topbar />
-      {/* Hero banner */}
-      <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-violet-700 text-white">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 py-10 xl:py-14">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <GraduationCap size={18} className="text-blue-200" />
-                <span className="text-blue-200 text-sm font-medium">
-                  Spring 2026 Internship Season
-                </span>
-              </div>
-              <h1 className="text-3xl xl:text-4xl font-bold tracking-tight mb-2">
-                Find Your Next Internship
-              </h1>
-              <p className="text-blue-100 text-base xl:text-lg max-w-xl">
-                Browse curated opportunities across tech, finance, design, and more. Updated daily — no account needed to apply.
-              </p>
-            </div>
-
-            {/* Hero stats */}
-            <div className="flex items-center gap-6 flex-shrink-0">
-              <div className="text-center">
-                <p className="text-3xl font-bold tabular-nums">12</p>
-                <p className="text-blue-200 text-xs font-medium mt-0.5">Open Roles</p>
-              </div>
-              <div className="w-px h-12 bg-white/20" />
-              <div className="text-center">
-                <p className="text-3xl font-bold tabular-nums">11</p>
-                <p className="text-blue-200 text-xs font-medium mt-0.5">Companies</p>
-              </div>
-              <div className="w-px h-12 bg-white/20" />
-              <div className="flex items-center gap-2">
-                <TrendingUp size={16} className="text-green-300" />
-                <div>
-                  <p className="text-sm font-semibold text-green-300">4 new</p>
-                  <p className="text-blue-200 text-xs">this week</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick category chips */}
-          <div className="flex flex-wrap gap-2 mt-6">
-            {[
-              { label: '💻 Technology', count: 3 },
-              { label: '💰 Finance', count: 2 },
-              { label: '🎨 Design', count: 2 },
-              { label: '📊 Data & Analytics', count: 2 },
-              { label: '📣 Marketing', count: 1 },
-              { label: '⚙️ Operations', count: 1 },
-              { label: '⚖️ Legal', count: 1 },
-            ]?.map((chip) => (
-              <span
-                key={`hero-chip-${chip?.label}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 text-white text-xs font-medium border border-white/20 cursor-default transition-colors"
-              >
-                {chip?.label}
-                <span className="bg-white/20 rounded-full px-1.5 py-0.5 text-[10px] tabular-nums">
-                  {chip?.count}
-                </span>
+      {/* Hero section - Matching the provided image */}
+      <div className="bg-white">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 pt-20 pb-12">
+          <div className="max-w-4xl relative">
+            {/* Direct Application Portal Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F0F7FF] border border-[#E0EFFF] mb-10">
+              <Sparkles size={14} className="text-[#3B82F6]" />
+              <span className="text-[#3B82F6] text-[10px] font-black uppercase tracking-[0.2em]">
+                Direct Application Portal
               </span>
-            ))}
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-6xl xl:text-7xl font-black text-[#1A1D23] tracking-tight mb-8 leading-[1.05]">
+              Apply <span className="text-[#3B82F6]">Directly</span> to<br />
+              Premium Opportunities.
+            </h1>
+
+            {/* Subheading */}
+            <p className="text-[#6B7280] text-xl font-medium max-w-2xl leading-relaxed">
+              Skip the middleman. We've curated high-growth internships that allow<br className="hidden md:block" />
+              you to apply directly on their own portals for faster responses.
+            </p>
+
+            {/* Updated Daily Badge - Bottom Right of Hero Area */}
+            <div className="absolute right-0 bottom-0 hidden lg:flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#F8FAFC] border border-[#F1F5F9]">
+              <RotateCcw size={16} className="text-[#3B82F6]" />
+              <span className="text-[#64748B] text-[13px] font-bold">Updated daily</span>
+            </div>
           </div>
         </div>
       </div>
       {/* Main content area */}
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 py-6 xl:py-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 py-8 xl:py-12">
         <ListingsPageClient />
       </div>
       {/* Footer */}
-      <footer className="border-t border-border mt-12">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Briefcase size={14} />
-            <span>
-              InternHub — Internship Discovery Portal · Spring 2026
-            </span>
+      <footer className="bg-white border-t border-gray-100 mt-20">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xs">IH</div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-gray-900 leading-none mb-1">InternHub</span>
+              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-none">Discovery Portal · 2026</span>
+            </div>
           </div>
-          <p className="text-xs text-muted-foreground">
-            Listings sourced from public postings. Apply directly on company career pages.
+          <p className="text-xs text-gray-400 font-medium max-w-xs text-center sm:text-right leading-relaxed">
+            Apply directly on official career pages. All listings are curated for quality.
           </p>
         </div>
       </footer>

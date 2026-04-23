@@ -3,15 +3,15 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Toaster, toast } from 'sonner';
 import FilterSidebar from './FilterSidebar';
-import SortAndResultsBar from './SortAndResultsBar';
 import InternshipList from './InternshipList';
 import ErrorBanner from './ErrorBanner';
-import type { FilterState } from './FilterSidebar';
-import type { SortOption } from './SortAndResultsBar';
+import type { FilterState, PostedFilter } from './FilterSidebar';
 import type { Internship } from '@/lib/internshipData';
 
 const API_URL =
   'https://script.google.com/macros/s/AKfycbyN7r86q6c6HB575kJqDlDyw7kSMjfSz4pKzcBoxd0kSH2o5v-fykDmICq_z4vJBA-9hQ/exec';
+
+export type SortOption = 'newest' | 'deadline';
 
 // Normalize raw API record to Internship shape
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -167,12 +167,26 @@ function filterInternships(internships: Internship[], filters: FilterState): Int
         months = Math.round(weeks / 4);
       }
 
-      const filterMonths = parseInt(filters.duration, 10);
-      if (filters.duration === '6') {
+      if (filters.duration === '1-2') {
+        if (months < 1 || months > 2) return false;
+      } else if (filters.duration === '3-4') {
+        if (months < 3 || months > 4) return false;
+      } else if (filters.duration === '6') {
         if (months < 6) return false;
-      } else {
-        if (months !== filterMonths) return false;
       }
+    }
+
+    // Posted filter
+    if (filters.posted !== 'all') {
+      const postedDate = new Date(i.postedDate);
+      const now = new Date('2026-04-23'); // Using today's date from env
+      const diffMs = now.getTime() - postedDate.getTime();
+      const diffHours = diffMs / (1000 * 60 * 60);
+      const diffDays = diffHours / 24;
+
+      if (filters.posted === '24h' && diffHours > 24) return false;
+      if (filters.posted === '7d' && diffDays > 7) return false;
+      if (filters.posted === '30d' && diffDays > 30) return false;
     }
 
     return true;
@@ -188,11 +202,11 @@ export const DEFAULT_FILTERS: FilterState = {
   category: 'all',
   type: 'all',
   duration: 'all',
+  posted: 'all',
 };
 
 export default function ListingsPageClient() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
-  const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
@@ -249,55 +263,38 @@ export default function ListingsPageClient() {
 
   const filteredAndSorted = useMemo(() => {
     const filtered = filterInternships(allInternships, filters);
-    return sortInternships(filtered, sortBy);
-  }, [allInternships, filters, sortBy]);
+    return sortInternships(filtered, 'newest');
+  }, [allInternships, filters]);
 
   return (
-    <>
-      <Toaster position="bottom-right" richColors closeButton />
+    <div className="relative">
+      <Toaster position="top-center" richColors />
 
-      <div className="flex gap-6 xl:gap-8 items-start">
-        {/* Filter Sidebar */}
+      {/* Main Content */}
+      <div className="flex flex-col gap-8">
+        {/* Horizontal Filters */}
         <FilterSidebar
           filters={filters}
           onFilterChange={handleFilterChange}
           totalResults={filteredAndSorted.length}
-          isMobileOpen={mobileFilterOpen}
-          onMobileClose={() => setMobileFilterOpen(false)}
           availableLocations={availableLocations}
           availableSkills={availableSkills}
         />
 
-        {/* Main content */}
-        <main className="flex-1 min-w-0 space-y-5">
-          {/* Error state */}
-          {hasError && (
-            <ErrorBanner
-              message="Failed to load internship listings from the API. Check your connection and try again."
-              onRetry={handleRetry}
-            />
+        <div className="flex-1">
+          {hasError ? (
+            <ErrorBanner onRetry={handleRetry} />
+          ) : (
+            <>
+              {/* Listings Grid */}
+              <InternshipList
+                internships={filteredAndSorted}
+                isLoading={isLoading}
+              />
+            </>
           )}
-
-          {/* Sort + results count bar */}
-          {!hasError && (
-            <SortAndResultsBar
-              totalResults={filteredAndSorted.length}
-              sortBy={sortBy}
-              onSortChange={setSortBy}
-              onMobileFilterOpen={() => setMobileFilterOpen(true)}
-            />
-          )}
-
-          {/* Listings grid */}
-          {!hasError && (
-            <InternshipList
-              internships={filteredAndSorted}
-              isLoading={isLoading}
-              onResetFilters={handleResetFilters}
-            />
-          )}
-        </main>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
