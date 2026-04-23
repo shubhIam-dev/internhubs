@@ -17,7 +17,7 @@ export default function Topbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1 group">
           <span className="text-2xl font-black tracking-tighter text-gray-900">
-            Intern<span className="text-red-500">Hub</span>
+            Intern<span className="text-newton-blue-500">Hub</span>
           </span>
         </Link>
 
@@ -27,8 +27,8 @@ export default function Topbar() {
             <Link
               key={link.label}
               href={link.href}
-              className={`text-[11px] font-black tracking-[0.15em] transition-all duration-200 hover:text-red-500 ${link.isHighlight
-                  ? 'px-5 py-2.5 rounded-full bg-red-50 text-red-500 hover:bg-red-100'
+              className={`text-[11px] font-black tracking-[0.15em] transition-all duration-200 hover:text-newton-blue-500 ${link.isHighlight
+                  ? 'px-5 py-2.5 rounded-full bg-newton-blue-50 text-newton-blue-500 hover:bg-newton-blue-100'
                   : 'text-gray-400'
                 }`}
             >
@@ -39,7 +39,7 @@ export default function Topbar() {
 
         {/* Auth */}
         <div className="flex items-center gap-4">
-          <button className="px-8 py-3 rounded-full bg-[#FF4D4D] text-white text-[11px] font-black tracking-[0.15em] hover:bg-[#FF3333] transition-all shadow-[0_8px_20px_-6px_rgba(255,77,77,0.4)] active:scale-95">
+          <button className="px-8 py-3 rounded-full bg-newton-blue-500 text-white text-[11px] font-black tracking-[0.15em] hover:bg-newton-blue-600 transition-all shadow-[0_8px_20px_-6px_rgba(0,102,255,0.4)] active:scale-95">
             SIGN IN
           </button>
         </div>

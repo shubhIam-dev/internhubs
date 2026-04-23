@@ -4,24 +4,37 @@ import ListingsPageClient from '@/components/listings/ListingsPageClient';
 import { RotateCcw, Sparkles } from 'lucide-react';
 
 export default function RootPage() {
+  console.log('115 104 117 98 104 97 109 108 111 118 101 115 108 97 107 115 104 105 116 97')
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Newton School Top Banner */}
+      {/* <div className="bg-[#FF6B00] text-white py-2 px-4 flex items-center justify-center gap-4 text-sm font-bold">
+        <div className="flex items-center gap-2">
+          <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">!</span>
+          <span>Newton School students — your primary internship portal is live. Explore now!</span>
+        </div>
+        <button className="bg-white text-[#FF6B00] px-4 py-1 rounded-lg text-xs font-black uppercase tracking-wider hover:bg-orange-50 transition-colors">
+          View All Listings
+        </button>
+      </div> */}
+
       <Topbar />
       {/* Hero section - Matching the provided image */}
       <div className="bg-white">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 pt-20 pb-12">
           <div className="max-w-4xl relative">
             {/* Direct Application Portal Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F0F7FF] border border-[#E0EFFF] mb-10">
-              <Sparkles size={14} className="text-[#3B82F6]" />
-              <span className="text-[#3B82F6] text-[10px] font-black uppercase tracking-[0.2em]">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-newton-blue-50 border border-newton-blue-100 mb-10">
+              <Sparkles size={14} className="text-newton-blue-500" />
+              <span className="text-newton-blue-500 text-[10px] font-black uppercase tracking-[0.2em]">
                 Direct Application Portal
               </span>
             </div>
 
             {/* Main Heading */}
             <h1 className="text-6xl xl:text-7xl font-black text-[#1A1D23] tracking-tight mb-8 leading-[1.05]">
-              Apply <span className="text-[#3B82F6]">Directly</span> to<br />
+              Apply <span className="text-newton-blue-500">Directly</span> to<br />
               Premium Opportunities.
             </h1>
 
@@ -31,16 +44,6 @@ export default function RootPage() {
               you to apply directly on their own portals for faster responses.
             </p>
 
-            {/* Updated Daily Badge - Bottom Right of Hero Area */}
-            <div className="absolute right-0 bottom-12 hidden lg:flex items-center gap-3 px-6 py-4 rounded-[24px] bg-white border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                <RotateCcw size={18} className="text-blue-500" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Status</span>
-                <span className="text-sm font-bold text-gray-600">Updated daily</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

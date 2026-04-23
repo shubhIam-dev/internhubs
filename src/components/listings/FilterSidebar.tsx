@@ -74,7 +74,7 @@ export default function FilterSidebar({
             placeholder="Search by role, company or keywords..."
             value={filters.keyword}
             onChange={(e) => onFilterChange({ ...filters, keyword: e.target.value })}
-            className="w-full pl-16 pr-8 py-6 bg-white border border-gray-100 rounded-3xl text-gray-600 placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500/20 transition-all text-xl shadow-sm"
+            className="w-full pl-16 pr-8 py-6 bg-white border border-gray-100 rounded-3xl text-gray-600 placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-newton-blue-500/5 focus:border-newton-blue-500/20 transition-all text-xl shadow-sm"
           />
         </div>
         {(filters.keyword || filters.location !== 'All Locations' || filters.skills.length > 0 || filters.duration !== 'all' || filters.posted !== 'all') && (
@@ -90,7 +90,7 @@ export default function FilterSidebar({
               duration: 'all',
               posted: 'all',
             })}
-            className="ml-6 px-8 py-6 text-sm font-black text-gray-400 hover:text-blue-600 transition-colors uppercase tracking-widest"
+            className="ml-6 px-8 py-6 text-sm font-black text-gray-400 hover:text-newton-blue-500 transition-colors uppercase tracking-widest"
           >
             Reset Filters
           </button>
@@ -101,14 +101,14 @@ export default function FilterSidebar({
         {/* Location Filter */}
         <div className="flex items-start gap-8">
           <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
-            <MapPin size={16} className="text-blue-400" />
+            <MapPin size={16} className="text-newton-blue-500" />
             <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Location</span>
           </div>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => toggleLocation('Remote')}
               className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.location === 'Remote'
-                ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-200'
+                ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                 }`}
             >
@@ -119,7 +119,7 @@ export default function FilterSidebar({
                 key={loc}
                 onClick={() => toggleLocation(loc)}
                 className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.location === loc
-                  ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-200'
+                  ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                   : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                   }`}
               >
@@ -132,7 +132,7 @@ export default function FilterSidebar({
         {/* Expertise Filter */}
         <div className="flex items-start gap-8">
           <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
-            <Briefcase size={16} className="text-emerald-400" />
+            <Briefcase size={16} className="text-newton-orange-500" />
             <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Expertise</span>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -143,7 +143,7 @@ export default function FilterSidebar({
                   key={skill}
                   onClick={() => toggleSkill(skill)}
                   className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${isSelected
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-200'
+                    ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                     }`}
                 >
@@ -157,7 +157,7 @@ export default function FilterSidebar({
         {/* Duration Filter */}
         <div className="flex items-start gap-8">
           <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
-            <Clock size={16} className="text-purple-400" />
+            <Clock size={16} className="text-newton-yellow-500" />
             <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Duration</span>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -168,7 +168,7 @@ export default function FilterSidebar({
                   key={d.value}
                   onClick={() => onFilterChange({ ...filters, duration: d.value })}
                   className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${isSelected
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-200'
+                    ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                     }`}
                 >
@@ -182,7 +182,7 @@ export default function FilterSidebar({
         {/* Posted Filter */}
         <div className="flex items-start gap-8">
           <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
-            <Calendar size={16} className="text-orange-400" />
+            <Calendar size={16} className="text-newton-blue-500" />
             <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Posted</span>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -193,7 +193,7 @@ export default function FilterSidebar({
                   key={opt.value}
                   onClick={() => onFilterChange({ ...filters, posted: opt.value })}
                   className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${isSelected
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-200'
+                    ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                     }`}
                 >

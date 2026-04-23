@@ -11,16 +11,16 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  tech: 'bg-blue-50 text-blue-700 border-blue-200',
+  tech: 'bg-newton-blue-50 text-newton-blue-500 border-newton-blue-100',
   finance: 'bg-emerald-50 text-emerald-700 border-emerald-200',
   design: 'bg-purple-50 text-purple-700 border-purple-200',
-  marketing: 'bg-orange-50 text-orange-700 border-orange-200',
+  marketing: 'bg-newton-orange-50 text-newton-orange-500 border-newton-orange-50',
   operations: 'bg-slate-50 text-slate-700 border-slate-200',
   data: 'bg-cyan-50 text-cyan-700 border-cyan-200',
   legal: 'bg-amber-50 text-amber-700 border-amber-200',
   hr: 'bg-pink-50 text-pink-700 border-pink-200',
   remote: 'bg-violet-50 text-violet-700 border-violet-200',
-  'full-time': 'bg-blue-50 text-blue-700 border-blue-200',
+  'full-time': 'bg-newton-blue-50 text-newton-blue-500 border-newton-blue-100',
   'part-time': 'bg-teal-50 text-teal-700 border-teal-200',
   hybrid: 'bg-indigo-50 text-indigo-700 border-indigo-200',
   new: 'bg-green-50 text-green-700 border-green-200',

@@ -5,6 +5,7 @@ import { Toaster, toast } from 'sonner';
 import FilterSidebar from './FilterSidebar';
 import InternshipList from './InternshipList';
 import ErrorBanner from './ErrorBanner';
+import Pagination from './Pagination';
 import type { FilterState, PostedFilter } from './FilterSidebar';
 import type { Internship } from '@/lib/internshipData';
 
@@ -205,12 +206,14 @@ export const DEFAULT_FILTERS: FilterState = {
   posted: 'all',
 };
 
+const ITEMS_PER_PAGE = 12;
+
 export default function ListingsPageClient() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [allInternships, setAllInternships] = useState<Internship[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const loadInternships = useCallback(async (showToast = false) => {
     setIsLoading(true);
@@ -236,10 +239,12 @@ export default function ListingsPageClient() {
 
   const handleFilterChange = useCallback((newFilters: FilterState) => {
     setFilters(newFilters);
+    setCurrentPage(1);
   }, []);
 
   const handleResetFilters = useCallback(() => {
     setFilters(DEFAULT_FILTERS);
+    setCurrentPage(1);
     toast.info('All filters cleared');
   }, []);
 
@@ -266,6 +271,12 @@ export default function ListingsPageClient() {
     return sortInternships(filtered, 'newest');
   }, [allInternships, filters]);
 
+  const totalPages = Math.ceil(filteredAndSorted.length / ITEMS_PER_PAGE);
+  const paginatedInternships = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredAndSorted.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredAndSorted, currentPage]);
+
   return (
     <div className="relative">
       <Toaster position="top-center" richColors />
@@ -288,9 +299,18 @@ export default function ListingsPageClient() {
             <>
               {/* Listings Grid */}
               <InternshipList
-                internships={filteredAndSorted}
+                internships={paginatedInternships}
                 isLoading={isLoading}
               />
+
+              {/* Pagination */}
+              {!isLoading && totalPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              )}
             </>
           )}
         </div>

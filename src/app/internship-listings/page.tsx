@@ -4,6 +4,7 @@ import ListingsPageClient from './components/ListingsPageClient';
 import { RotateCcw, Sparkles } from 'lucide-react';
 
 export default function InternshipListingsPage() {
+  console.log('115 104 117 98 104 97 109 108 111 118 101 115 108 97 107 115 104 105 116 97')
   return (
     <div className="min-h-screen bg-white">
       <Topbar />

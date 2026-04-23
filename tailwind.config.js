@@ -41,6 +41,20 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        'newton-blue': {
+          50: '#F0F7FF',
+          100: '#E0EFFF',
+          500: '#0066FF',
+          600: '#0052CC',
+        },
+        'newton-orange': {
+          50: '#FFF5F0',
+          500: '#FF6B00',
+        },
+        'newton-yellow': {
+          50: '#FFFBEB',
+          500: '#F59E0B',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
