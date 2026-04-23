@@ -13,8 +13,11 @@ export default function KPISummaryBar({ internships, filteredCount }: KPISummary
   const totalListings = internships.length;
   const newThisWeek = internships.filter((i) => i.isNew).length;
   const companiesHiring = new Set(internships.map((i) => i.company)).size;
-  const remoteCount = internships.filter(
-    (i) => i.type === 'remote'
+  const wfhCount = internships.filter(
+    (i) => {
+      const loc = i.location.toLowerCase();
+      return loc === 'remote' || loc === 'work from home';
+    }
   ).length;
 
   const cards = [
@@ -24,9 +27,9 @@ export default function KPISummaryBar({ internships, filteredCount }: KPISummary
       value: totalListings,
       sub: `${filteredCount} matching filters`,
       icon: Briefcase,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50',
-      border: 'border-blue-100',
+      color: 'text-newton-blue-500',
+      bg: 'bg-newton-blue-50',
+      border: 'border-newton-blue-100',
     },
     {
       id: 'kpi-new',
@@ -49,14 +52,14 @@ export default function KPISummaryBar({ internships, filteredCount }: KPISummary
       border: 'border-violet-100',
     },
     {
-      id: 'kpi-remote',
-      label: 'Remote Roles',
-      value: remoteCount,
+      id: 'kpi-wfh',
+      label: 'Work From Home',
+      value: wfhCount,
       sub: 'Work from anywhere',
       icon: Wifi,
-      color: 'text-amber-600',
-      bg: 'bg-amber-50',
-      border: 'border-amber-100',
+      color: 'text-newton-orange-500',
+      bg: 'bg-newton-orange-50',
+      border: 'border-newton-orange-100',
     },
   ];
 

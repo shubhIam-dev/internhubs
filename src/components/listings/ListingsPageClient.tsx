@@ -10,7 +10,7 @@ import type { FilterState, PostedFilter } from './FilterSidebar';
 import type { Internship } from '@/lib/internshipData';
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbyN7r86q6c6HB575kJqDlDyw7kSMjfSz4pKzcBoxd0kSH2o5v-fykDmICq_z4vJBA-9hQ/exec';
+  'https://script.googleusercontent.com/macros/echo?user_content_key=AWDtjMVunf6UvGqCvarKNYA-uz2tsqo_W2-OKM93wNZBNS7zSzmMRI_wnQyPsoA7uUMMAMbM-UcJZbBhPCzEQZBJnJCv82VS53okuXvp-peAuPqpq1G3CbTBUKVBNape5JpQAsB9qZ8r4b5NHTMGNFb7HAroTMO8VCUbFvC_-aiUoFx6wi8UM4Vy2JITffpvCrzVJFNzaNSc1UEetSlfeODGx3sZHErC7yfsCXdknc0S5XhtH_mbOMZ5Mg8-sa0KlOHZUMpNkdhiNlU-Se_5yD84JPFBsDXt0g&lib=MxqwR3xljJVaCsDPPAiS9cMD_ru-QQO2K';
 
 export type SortOption = 'newest' | 'deadline';
 
@@ -26,9 +26,9 @@ function normalizeInternship(raw: any, index: number): Internship {
         ? [raw.location]
         : typeof raw.Location === 'string'
           ? [raw.Location]
-          : ['Remote'];
+          : ['Work From Home'];
 
-  const primaryLocation = locationsArr[0] ?? 'Remote';
+  const primaryLocation = locationsArr[0] ?? 'Work From Home';
 
   // Handle stipend from API (min_monthly_stipend / max_monthly_stipend)
   const minStipend: number | null =
@@ -109,6 +109,42 @@ function parseStipenddValue(stipend: string): number {
   return parseInt(match, 10) || 0;
 }
 
+function parseDeadlineDate(deadline: string): Date | null {
+  if (!deadline) return null;
+  const trimmed = deadline.trim();
+  if (!trimmed) return null;
+
+  const direct = new Date(trimmed);
+  if (!isNaN(direct.getTime())) return direct;
+
+  const m = trimmed.match(/^(\d{1,2})\s+([A-Za-z]{3,})['’]?\s*(\d{2,4})/);
+  if (!m) return null;
+
+  const day = Number.parseInt(m[1], 10);
+  const monKey = m[2].slice(0, 3).toLowerCase();
+  const yearRaw = Number.parseInt(m[3], 10);
+  const year = yearRaw < 100 ? yearRaw + 2000 : yearRaw;
+
+  const monthMap: Record<string, number> = {
+    jan: 0,
+    feb: 1,
+    mar: 2,
+    apr: 3,
+    may: 4,
+    jun: 5,
+    jul: 6,
+    aug: 7,
+    sep: 8,
+    oct: 9,
+    nov: 10,
+    dec: 11,
+  };
+  const month = monthMap[monKey];
+  if (month === undefined || Number.isNaN(day) || Number.isNaN(year)) return null;
+
+  return new Date(year, month, day);
+}
+
 function sortInternships(internships: Internship[], sortBy: SortOption): Internship[] {
   const copy = [...internships];
   switch (sortBy) {
@@ -127,6 +163,15 @@ function sortInternships(internships: Internship[], sortBy: SortOption): Interns
 
 function filterInternships(internships: Internship[], filters: FilterState): Internship[] {
   return internships.filter((i) => {
+    const deadlineDate = parseDeadlineDate(i.deadline);
+    if (deadlineDate) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const deadlineDay = new Date(deadlineDate);
+      deadlineDay.setHours(0, 0, 0, 0);
+      if (deadlineDay < today) return false;
+    }
+
     // Keyword search
     if (filters.keyword) {
       const kw = filters.keyword.toLowerCase();
@@ -141,19 +186,27 @@ function filterInternships(internships: Internship[], filters: FilterState): Int
     // Location filter — match against locations array
     if (filters.location !== 'All Locations') {
       const locs = i.locations ?? [i.location];
-      const matched = locs.some(
-        (l) => l.toLowerCase() === filters.location.toLowerCase()
-      );
+      const matched = locs.some((l) => {
+        const itemLoc = l.toLowerCase();
+        const filterLoc = filters.location.toLowerCase();
+
+        // If filtering for "Work From Home", also match "Remote"
+        if (filterLoc === 'work from home') {
+          return itemLoc === 'work from home' || itemLoc === 'remote';
+        }
+
+        return itemLoc === filterLoc;
+      });
       if (!matched) return false;
     }
 
-    // Skills filter — internship must have ALL selected skills
+    // Skills filter — internship must have ANY of the selected skills (Union)
     if (filters.skills.length > 0) {
       const internSkills = i.skills.map((s) => s.toLowerCase());
-      const allMatch = filters.skills.every((fs) =>
+      const hasAnySkill = filters.skills.some((fs) =>
         internSkills.includes(fs.toLowerCase())
       );
-      if (!allMatch) return false;
+      if (!hasAnySkill) return false;
     }
 
     // Duration filter
@@ -190,6 +243,29 @@ function filterInternships(internships: Internship[], filters: FilterState): Int
       if (filters.posted === '30d' && diffDays > 30) return false;
     }
 
+    // Title Category filter — match title keywords (Development, AI, Backend, etc.)
+    if (filters.titleCategory) {
+      const titleLower = i.title.toLowerCase();
+      const categoryLower = filters.titleCategory.toLowerCase();
+      if (!titleLower.includes(categoryLower)) return false;
+    }
+
+    // Category filter
+    if (filters.category !== 'all') {
+      if (i.category.toLowerCase() !== filters.category.toLowerCase()) return false;
+    }
+
+    // Type filter
+    if (filters.type !== 'all') {
+      if (i.type.toLowerCase() !== filters.type.toLowerCase()) return false;
+    }
+
+    // Stipend filter
+    if (filters.stipendMin !== null) {
+      const min = i.minStipend ?? parseStipenddValue(i.stipend);
+      if (min < filters.stipendMin) return false;
+    }
+
     return true;
   });
 }
@@ -204,6 +280,7 @@ export const DEFAULT_FILTERS: FilterState = {
   type: 'all',
   duration: 'all',
   posted: 'all',
+  titleCategory: '',
 };
 
 const ITEMS_PER_PAGE = 12;
@@ -253,7 +330,10 @@ export default function ListingsPageClient() {
     const set = new Set<string>();
     allInternships.forEach((i) => {
       const locs = i.locations ?? [i.location];
-      locs.forEach((l) => set.add(l));
+      locs.forEach((l) => {
+        const normalized = l.toLowerCase() === 'remote' ? 'Work From Home' : l;
+        set.add(normalized);
+      });
     });
     return ['All Locations', ...Array.from(set).sort()];
   }, [allInternships]);

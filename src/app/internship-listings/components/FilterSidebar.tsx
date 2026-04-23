@@ -14,6 +14,7 @@ export interface FilterState {
   category: InternshipCategory | 'all';
   type: InternshipType | 'all';
   duration: string;
+  titleCategory: string;
 }
 
 interface FilterSidebarProps {
@@ -45,7 +46,8 @@ export default function FilterSidebar({
     filters.skills.length > 0 ||
     filters.category !== 'all' ||
     filters.type !== 'all' ||
-    filters.duration !== 'all';
+    filters.duration !== 'all' ||
+    filters.titleCategory !== '';
 
   const resetFilters = () => {
     onFilterChange({
@@ -57,6 +59,7 @@ export default function FilterSidebar({
       category: 'all',
       type: 'all',
       duration: 'all',
+      titleCategory: '',
     });
     setSkillSearch('');
   };
@@ -161,6 +164,15 @@ export default function FilterSidebar({
             Top Skills
           </label>
           <div className="flex flex-wrap gap-1.5">
+            <button
+              onClick={() => onFilterChange({ ...filters, skills: [] })}
+              className={`px-3 py-1.5 rounded-lg text-[11px] font-medium transition-all duration-200 border ${filters.skills.length === 0
+                ? 'bg-primary text-primary-foreground border-primary shadow-sm scale-[0.98]'
+                : 'bg-white text-muted-foreground border-border/50 hover:border-primary/20 hover:text-primary hover:bg-primary/5'
+                }`}
+            >
+              All
+            </button>
             {availableSkills.slice(0, 12).map((skill) => {
               const isSelected = filters.skills.includes(skill);
               return (
@@ -176,6 +188,36 @@ export default function FilterSidebar({
                 </button>
               );
             })}
+          </div>
+        </div>
+
+        {/* Title Category Filter */}
+        <div>
+          <label className="block text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 mb-2 px-1">
+            Job Titles
+          </label>
+          <div className="flex flex-wrap gap-1.5">
+            <button
+              onClick={() => onFilterChange({ ...filters, titleCategory: '' })}
+              className={`px-3 py-1.5 rounded-lg text-[11px] font-medium transition-all duration-200 border ${filters.titleCategory === ''
+                ? 'bg-primary text-primary-foreground border-primary shadow-sm scale-[0.98]'
+                : 'bg-white text-muted-foreground border-border/50 hover:border-primary/20 hover:text-primary hover:bg-primary/5'
+                }`}
+            >
+              All
+            </button>
+            {['Development', 'AI', 'Backend', 'Frontend', 'Web', 'Full Stack', 'Software', 'MERN'].map((title) => (
+              <button
+                key={title}
+                onClick={() => onFilterChange({ ...filters, titleCategory: title })}
+                className={`px-3 py-1.5 rounded-lg text-[11px] font-medium transition-all duration-200 border ${filters.titleCategory === title
+                  ? 'bg-primary text-primary-foreground border-primary shadow-sm scale-[0.98]'
+                  : 'bg-white text-muted-foreground border-border/50 hover:border-primary/20 hover:text-primary hover:bg-primary/5'
+                  }`}
+              >
+                {title}
+              </button>
+            ))}
           </div>
         </div>
 

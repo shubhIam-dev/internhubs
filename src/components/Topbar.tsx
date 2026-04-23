@@ -3,11 +3,12 @@ import Link from 'next/link';
 
 export default function Topbar() {
   const navLinks = [
+    { label: 'SELF APPLY', href: '#', isHighlight: true },
     { label: 'QUESTIONS', href: '#' },
     { label: 'FLASHCARDS', href: '#' },
     { label: 'ASSIGNMENTS', href: '#' },
     { label: 'EXPERIENCES', href: '#' },
-    { label: 'SELF APPLY', href: '#', isHighlight: true },
+
     { label: 'INSIDERS', href: '#' },
   ];
 
@@ -15,9 +16,12 @@ export default function Topbar() {
     <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <span className="text-2xl font-black tracking-tighter text-gray-900">
             Intern<span className="text-newton-blue-500">Hub</span>
+          </span>
+          <span className="hidden sm:inline text-[10px] font-black tracking-[0.18em] text-gray-400 uppercase">
+            Powered by NST • SVYASA
           </span>
         </Link>
 
@@ -28,8 +32,8 @@ export default function Topbar() {
               key={link.label}
               href={link.href}
               className={`text-[11px] font-black tracking-[0.15em] transition-all duration-200 hover:text-newton-blue-500 ${link.isHighlight
-                  ? 'px-5 py-2.5 rounded-full bg-newton-blue-50 text-newton-blue-500 hover:bg-newton-blue-100'
-                  : 'text-gray-400'
+                ? 'px-5 py-2.5 rounded-full bg-newton-blue-50 text-newton-blue-500 hover:bg-newton-blue-100'
+                : 'text-gray-400'
                 }`}
             >
               {link.label}

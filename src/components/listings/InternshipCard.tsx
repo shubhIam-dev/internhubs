@@ -32,52 +32,77 @@ function getTimeAgo(dateStr: string): string {
 
 export default function InternshipCard({ internship }: InternshipCardProps) {
   const companyInitial = internship.company ? internship.company.charAt(0).toUpperCase() : '?';
+  const displaySkills = internship.skills.slice(0, 2);
 
   return (
-    <article className="bg-white rounded-[32px] border border-gray-100 p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 group flex flex-col h-full">
+    <article className="bg-white rounded-[32px] border border-gray-100 p-8 hover:shadow-[0_30px_60px_rgba(0,102,255,0.06)] transition-all duration-500 group flex flex-col h-full relative overflow-hidden">
+      {/* Decorative Brand Accent */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-newton-blue-500/5 rounded-bl-full -mr-16 -mt-16 transition-transform duration-500 group-hover:scale-110" />
+
       {/* Top Section: Company Logo/Initial and Name */}
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center text-xl font-black text-gray-900 border border-gray-100 group-hover:scale-110 transition-transform duration-300">
+      <div className="flex items-start justify-between mb-8 relative z-10">
+        <div className="flex items-center gap-5">
+          <div className="w-16 h-16 rounded-[20px] bg-white flex items-center justify-center text-2xl font-black text-newton-blue-500 border-2 border-gray-50 shadow-sm group-hover:border-newton-blue-100 group-hover:shadow-md transition-all duration-300">
             {companyInitial}
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-black tracking-widest text-gray-400 uppercase">
+              <span className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase">
                 {internship.company}
               </span>
               {internship.isNew && (
-                <span className="px-2 py-0.5 rounded-md bg-newton-blue-50 text-newton-blue-500 text-[9px] font-black uppercase tracking-wider">
+                <span className="px-2 py-0.5 rounded-full bg-newton-orange-500 text-white text-[8px] font-black uppercase tracking-widest">
                   NEW
                 </span>
               )}
             </div>
-            <h3 className="text-2xl font-black text-gray-900 mt-1 leading-tight group-hover:text-newton-blue-500 transition-colors">
+            <h3 className="text-xl font-black text-gray-900 mt-1 leading-tight group-hover:text-newton-blue-500 transition-colors line-clamp-2">
               {internship.title}
             </h3>
           </div>
         </div>
       </div>
 
+      {/* Skills Section - NEW */}
+      {displaySkills.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-8 relative z-10">
+          {displaySkills.map((skill) => (
+            <span
+              key={skill}
+              className="px-3 py-1.5 rounded-xl bg-gray-50 text-gray-600 text-[10px] font-bold uppercase tracking-wider border border-gray-100 group-hover:bg-newton-blue-50 group-hover:border-newton-blue-100 group-hover:text-newton-blue-600 transition-colors"
+            >
+              {skill}
+            </span>
+          ))}
+          {internship.skills.length > 2 && (
+            <span className="px-2 py-1.5 text-[10px] text-gray-300 font-bold uppercase tracking-widest">
+              +{internship.skills.length - 2}
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Grid Section: Details */}
-      <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-8">
+      <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-8 relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center shrink-0">
-            <MapPin size={16} className="text-gray-400" />
+          <div className="w-10 h-10 rounded-xl bg-newton-blue-50/50 flex items-center justify-center shrink-0 group-hover:bg-newton-blue-50 transition-colors">
+            <MapPin size={16} className="text-newton-blue-500" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[9px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Location</span>
-            <span className="text-sm font-bold text-gray-700">{internship.location}</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[8px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Location</span>
+            <span className="text-xs font-bold text-gray-600 truncate">
+              {internship.location.toLowerCase() === 'remote' ? 'Work From Home' : internship.location}
+            </span>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center shrink-0">
-            <IndianRupee size={16} className="text-gray-400" />
+          <div className="w-10 h-10 rounded-xl bg-newton-orange-50/50 flex items-center justify-center shrink-0 group-hover:bg-newton-orange-50 transition-colors">
+            <IndianRupee size={16} className="text-newton-orange-500" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[9px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Stipend</span>
-            <span className="text-sm font-bold text-gray-700">{internship.stipend}</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[8px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Stipend</span>
+            <span className="text-xs font-bold text-gray-600 truncate">{internship.stipend}</span>
           </div>
         </div>
 
@@ -85,9 +110,9 @@ export default function InternshipCard({ internship }: InternshipCardProps) {
           <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center shrink-0">
             <Clock size={16} className="text-gray-400" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[9px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Duration</span>
-            <span className="text-sm font-bold text-gray-700">{internship.duration}</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[8px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Duration</span>
+            <span className="text-xs font-bold text-gray-600 truncate">{internship.duration}</span>
           </div>
         </div>
 
@@ -95,27 +120,28 @@ export default function InternshipCard({ internship }: InternshipCardProps) {
           <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center shrink-0">
             <Calendar size={16} className="text-gray-400" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[9px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Apply By</span>
-            <span className="text-sm font-bold text-newton-blue-500">{formatDate(internship.deadline)}</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[8px] font-black tracking-widest text-gray-300 uppercase leading-none mb-1">Deadline</span>
+            <span className="text-xs font-bold text-gray-600 truncate">{formatDate(internship.deadline)}</span>
           </div>
         </div>
       </div>
 
       {/* Bottom Section: Time and CTA */}
-      <div className="mt-auto pt-8 border-t border-gray-50 flex items-center justify-between">
+      <div className="mt-auto pt-8 border-t border-gray-50 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-2 text-gray-400">
-          <Clock size={14} />
-          <span className="text-xs font-bold uppercase tracking-wider">{getTimeAgo(internship.postedDate)}</span>
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className='text-[10px] font-black'>POSTED</span>
+          <span className="text-[10px] font-black uppercase tracking-widest">{getTimeAgo(internship.postedDate)}</span>
         </div>
         <a
           href={internship.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-3 bg-newton-blue-500 text-white rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-newton-blue-600 transition-all shadow-lg shadow-newton-blue-100 group/btn"
+          className="flex items-center gap-3 px-8 py-3.5 bg-gray-900 text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-newton-blue-500 transition-all duration-300 shadow-xl shadow-gray-200 hover:shadow-newton-blue-100 group/btn"
         >
-          Apply Now
-          <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+          Apply
+          <ExternalLink size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
         </a>
       </div>
     </article>

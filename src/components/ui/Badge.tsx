@@ -1,7 +1,7 @@
 import React from 'react';
 
 type BadgeVariant =
-  | 'tech' |'finance' |'design' |'marketing' |'operations' |'data' |'legal' |'hr' |'remote' |'full-time' |'part-time' |'hybrid' |'new' |'urgent' |'closed' |'open' |'default';
+  | 'tech' |'finance' |'design' |'marketing' |'operations' |'data' |'legal' |'hr' |'work-from-home' |'full-time' |'part-time' |'hybrid' |'new' |'urgent' |'closed' |'open' |'default';
 
 interface BadgeProps {
   variant?: BadgeVariant;
@@ -19,7 +19,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   data: 'bg-cyan-50 text-cyan-700 border-cyan-200',
   legal: 'bg-amber-50 text-amber-700 border-amber-200',
   hr: 'bg-pink-50 text-pink-700 border-pink-200',
-  remote: 'bg-violet-50 text-violet-700 border-violet-200',
+  'work-from-home': 'bg-violet-50 text-violet-700 border-violet-200',
   'full-time': 'bg-newton-blue-50 text-newton-blue-500 border-newton-blue-100',
   'part-time': 'bg-teal-50 text-teal-700 border-teal-200',
   hybrid: 'bg-indigo-50 text-indigo-700 border-indigo-200',

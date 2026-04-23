@@ -6,7 +6,7 @@
 export type InternshipCategory =
   | 'tech' | 'finance' | 'design' | 'marketing' | 'operations' | 'data' | 'legal' | 'hr';
 
-export type InternshipType = 'full-time' | 'part-time' | 'remote' | 'hybrid';
+export type InternshipType = 'full-time' | 'part-time' | 'work from home' | 'hybrid';
 
 export type InternshipStatus = 'open' | 'urgent' | 'closed';
 
@@ -62,9 +62,9 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     company: 'Figma',
     companyLogo: 'https://logo.clearbit.com/figma.com',
     companyLogoAlt: 'Figma logo — multicolor vector design tool brand mark',
-    location: 'Remote',
+    location: 'Work From Home',
     category: 'design',
-    type: 'remote',
+    type: 'work from home',
     duration: '10 weeks',
     stipend: '$7,200/mo',
     postedDate: '2026-04-20',
@@ -104,9 +104,9 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     company: 'Spotify',
     companyLogo: 'https://logo.clearbit.com/spotify.com',
     companyLogoAlt: 'Spotify logo — green circle with black soundwaves brand mark',
-    location: 'Remote',
+    location: 'Work From Home',
     category: 'data',
-    type: 'remote',
+    type: 'work from home',
     duration: '16 weeks',
     stipend: '$6,800/mo',
     postedDate: '2026-04-19',
@@ -167,9 +167,9 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     company: 'Vercel',
     companyLogo: 'https://logo.clearbit.com/vercel.com',
     companyLogoAlt: 'Vercel logo — black triangle pointing upward on white background',
-    location: 'Remote',
+    location: 'Work From Home',
     category: 'tech',
-    type: 'remote',
+    type: 'work from home',
     duration: '12 weeks',
     stipend: '$7,500/mo',
     postedDate: '2026-04-21',
@@ -305,13 +305,13 @@ export const TYPES: { value: InternshipType | 'all'; label: string }[] = [
   { value: 'all', label: 'All Types' },
   { value: 'full-time', label: 'Full-time' },
   { value: 'part-time', label: 'Part-time' },
-  { value: 'remote', label: 'Remote' },
+  { value: 'work from home', label: 'Work From Home' },
   { value: 'hybrid', label: 'Hybrid' },
 ];
 
 export const LOCATIONS: string[] = [
   'All Locations',
-  'Remote',
+  'Work From Home',
   'Bangalore',
   'Hyderabad',
   'Pune',

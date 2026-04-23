@@ -108,7 +108,7 @@ export default function LandingPage() {
                     </span>
                   </div>
                   {[
-                    { role: 'Full Stack Development', company: 'Finixia Dedecons', location: 'Remote', stipend: '₹3K–4K/mo', tag: 'bg-blue-50 text-blue-700' },
+                    { role: 'Full Stack Development', company: 'Finixia Dedecons', location: 'Work From Home', stipend: '₹3K–4K/mo', tag: 'bg-blue-50 text-blue-700' },
                     { role: 'UI/UX Design', company: 'PivotRoots', location: 'Mumbai', stipend: '₹8K–10K/mo', tag: 'bg-violet-50 text-violet-700' },
                     { role: 'Visual Design', company: 'Shiplock Technologies', location: 'Bangalore', stipend: '₹20K–25K/mo', tag: 'bg-amber-50 text-amber-700' },
                   ]?.map((item, i) => (
@@ -153,7 +153,7 @@ export default function LandingPage() {
             Built for students who move fast
           </h2>
           <p className="mt-2 text-muted-foreground text-sm max-w-md">
-            No account required. No forms. Just open listings and direct apply links.
+            No account required. No forms. Just browse listings with verified application links.
           </p>
         </div>
 
@@ -166,7 +166,7 @@ export default function LandingPage() {
             <div>
               <h3 className="text-lg font-bold text-foreground">Smart filters, instant results</h3>
               <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
-                Filter by location (remote or city) and required skills like React, Figma, or Python. Results update instantly — no page reloads.
+                Filter by location (work from home or city) and required skills like React, Figma, or Python. Results update instantly — no page reloads.
               </p>
               <Link
                 href="/internship-listings"
@@ -183,7 +183,7 @@ export default function LandingPage() {
               <MapPin size={20} className="text-primary" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-foreground mt-4">Remote & on-site</h3>
+              <h3 className="text-base font-bold text-foreground mt-4">Work From Home & on-site</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 Work from home or in-office across multiple cities — filter by what works for your schedule.
               </p>
@@ -220,7 +220,7 @@ export default function LandingPage() {
             <div>
               <h3 className="mt-4 text-base font-bold">Zero sign-up friction</h3>
               <p className="mt-1 text-sm text-white/70">
-                Browse and apply directly to company pages — no account, no email, no waiting.
+                Browse listings with verified links — no account, no email, no waiting.
               </p>
             </div>
           </div>

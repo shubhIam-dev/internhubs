@@ -1,7 +1,6 @@
 import React from 'react';
 import Topbar from '@/components/Topbar';
 import ListingsPageClient from '@/components/listings/ListingsPageClient';
-import { RotateCcw, Sparkles } from 'lucide-react';
 
 export default function RootPage() {
   console.log('115 104 117 98 104 97 109 108 111 118 101 115 108 97 107 115 104 105 116 97')
@@ -24,24 +23,16 @@ export default function RootPage() {
       <div className="bg-white">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 pt-20 pb-12">
           <div className="max-w-4xl relative">
-            {/* Direct Application Portal Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-newton-blue-50 border border-newton-blue-100 mb-10">
-              <Sparkles size={14} className="text-newton-blue-500" />
-              <span className="text-newton-blue-500 text-[10px] font-black uppercase tracking-[0.2em]">
-                Direct Application Portal
-              </span>
-            </div>
-
             {/* Main Heading */}
             <h1 className="text-6xl xl:text-7xl font-black text-[#1A1D23] tracking-tight mb-8 leading-[1.05]">
-              Apply <span className="text-newton-blue-500">Directly</span> to<br />
-              Premium Opportunities.
+              Land Your <span className="text-newton-blue-500">Dream Role</span><br />
+              With Trusted Listings.
             </h1>
 
             {/* Subheading */}
             <p className="text-[#6B7280] text-xl font-medium max-w-2xl leading-relaxed">
-              Skip the middleman. We've curated high-growth internships that allow<br className="hidden md:block" />
-              you to apply directly on their own portals for faster responses.
+              We bridge the gap between talent and top companies. Discover curated,
+              high-impact internships with verified application links and daily updates.
             </p>
 
           </div>
@@ -62,7 +53,7 @@ export default function RootPage() {
             </div>
           </div>
           <p className="text-xs text-gray-400 font-medium max-w-xs text-center sm:text-right leading-relaxed">
-            Apply directly on official career pages. All listings are curated for quality.
+            Verified application links. Listings refreshed daily.
           </p>
         </div>
       </footer>
