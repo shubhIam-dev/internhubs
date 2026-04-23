@@ -49,7 +49,7 @@ export default function RootPage() {
             <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xs">IH</div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-gray-900 leading-none mb-1">InternHub</span>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-none">Discovery Portal · 2026</span>
+
             </div>
           </div>
           <p className="text-xs text-gray-400 font-medium max-w-xs text-center sm:text-right leading-relaxed">
