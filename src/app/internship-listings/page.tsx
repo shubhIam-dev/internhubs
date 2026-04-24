@@ -4,22 +4,22 @@ import ListingsPageClient from './components/ListingsPageClient';
 import { RotateCcw } from 'lucide-react';
 
 export default function InternshipListingsPage() {
-  console.log('115 104 117 98 104 97 109 108 111 118 101 115 108 97 107 115 104 105 116 97')
+  console.info('115 104 117 98 104 97 109 108 111 118 101 115 108 97 107 115 104 105 116 97');
   return (
     <div className="min-h-screen bg-white">
       <Topbar />
       {/* Hero section - Matching the provided image */}
       <div className="bg-white">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 pt-20 pb-12">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 pt-10 sm:pt-16 lg:pt-20 pb-8 sm:pb-12">
           <div className="max-w-4xl relative">
             {/* Main Heading */}
-            <h1 className="text-6xl xl:text-7xl font-black text-[#1A1D23] tracking-tight mb-8 leading-[1.05]">
-              Explore <span className="text-[#3B82F6]">Premium</span><br />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-[#1A1D23] tracking-tight mb-6 sm:mb-8 leading-[1.05]">
+              Explore <span className="text-[#3B82F6]">Premium</span><br className="hidden sm:block" />
               Opportunities.
             </h1>
 
             {/* Subheading */}
-            <p className="text-[#6B7280] text-xl font-medium max-w-2xl leading-relaxed">
+            <p className="text-[#6B7280] text-base sm:text-lg lg:text-xl font-medium max-w-2xl leading-relaxed">
               Skip the noise. We've curated high-growth internships with verified application links,<br className="hidden md:block" />
               clear deadlines, and daily updates.
             </p>
@@ -35,10 +35,11 @@ export default function InternshipListingsPage() {
       <footer className="bg-white border-t border-gray-100 mt-20">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-16 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xs">IH</div>
+            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xs">
+              IH
+            </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-gray-900 leading-none mb-1">InternHub</span>
-
             </div>
           </div>
           <p className="text-xs text-gray-400 font-medium max-w-xs text-center sm:text-right leading-relaxed">

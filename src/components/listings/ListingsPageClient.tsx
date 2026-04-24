@@ -7,6 +7,7 @@ import InternshipList from './InternshipList';
 import ErrorBanner from './ErrorBanner';
 import Pagination from './Pagination';
 import type { FilterState, PostedFilter } from './FilterSidebar';
+import { parseApiPostedDate } from '@/lib/internshipData';
 import type { Internship } from '@/lib/internshipData';
 
 const API_URL =
@@ -149,9 +150,11 @@ function sortInternships(internships: Internship[], sortBy: SortOption): Interns
   const copy = [...internships];
   switch (sortBy) {
     case 'newest':
-      return copy.sort(
-        (a, b) => new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime()
-      );
+      return copy.sort((a, b) => {
+        const at = parseApiPostedDate(a.postedDate)?.getTime() ?? 0;
+        const bt = parseApiPostedDate(b.postedDate)?.getTime() ?? 0;
+        return bt - at;
+      });
     case 'deadline':
       return copy.sort(
         (a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
@@ -232,15 +235,18 @@ function filterInternships(internships: Internship[], filters: FilterState): Int
 
     // Posted filter
     if (filters.posted !== 'all') {
-      const postedDate = new Date(i.postedDate);
-      const now = new Date('2026-04-23'); // Using today's date from env
-      const diffMs = now.getTime() - postedDate.getTime();
-      const diffHours = diffMs / (1000 * 60 * 60);
-      const diffDays = diffHours / 24;
+      const postedDate = parseApiPostedDate(i.postedDate);
+      if (!postedDate) return false;
 
-      if (filters.posted === '24h' && diffHours > 24) return false;
-      if (filters.posted === '7d' && diffDays > 7) return false;
-      if (filters.posted === '30d' && diffDays > 30) return false;
+      const windowMs =
+        filters.posted === '24h'
+          ? 24 * 60 * 60 * 1000
+          : filters.posted === '7d'
+            ? 7 * 24 * 60 * 60 * 1000
+            : 30 * 24 * 60 * 60 * 1000;
+
+      const cutoff = Date.now() - windowMs;
+      if (postedDate.getTime() < cutoff) return false;
     }
 
     // Title Category filter — match title keywords (Development, AI, Backend, etc.)

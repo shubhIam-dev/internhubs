@@ -34,6 +34,70 @@ export interface Internship {
   openings: number;
 }
 
+export function parseApiPostedDate(value: unknown): Date | null {
+  if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
+  if (typeof value === 'number') {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  if (typeof value !== 'string') return null;
+
+  const s = value.trim();
+  if (!s) return null;
+
+  let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (m) {
+    const y = Number(m[1]);
+    const mo = Number(m[2]) - 1;
+    const d = Number(m[3]);
+    const out = new Date(y, mo, d);
+    return Number.isNaN(out.getTime()) ? null : out;
+  }
+
+  m = s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);
+  if (m) {
+    const day = Number(m[1]);
+    const month = Number(m[2]) - 1;
+    const yrRaw = Number(m[3]);
+    const year = yrRaw < 100 ? yrRaw + 2000 : yrRaw;
+    const out = new Date(year, month, day);
+    return Number.isNaN(out.getTime()) ? null : out;
+  }
+
+  m = s.match(/^(\d{1,2})\s+([A-Za-z]{3,})\.?,?['’]?\s*(\d{2,4})/);
+  if (m) {
+    const day = Number(m[1]);
+    const monKey = m[2].slice(0, 3).toLowerCase();
+    const yrRaw = Number(m[3]);
+    const year = yrRaw < 100 ? yrRaw + 2000 : yrRaw;
+
+    const monthMap: Record<string, number> = {
+      jan: 0,
+      feb: 1,
+      mar: 2,
+      apr: 3,
+      may: 4,
+      jun: 5,
+      jul: 6,
+      aug: 7,
+      sep: 8,
+      oct: 9,
+      nov: 10,
+      dec: 11,
+    };
+    const month = monthMap[monKey];
+    if (month === undefined) return null;
+
+    const out = new Date(year, month, day);
+    return Number.isNaN(out.getTime()) ? null : out;
+  }
+
+  const parsed = Date.parse(s);
+  if (!Number.isNaN(parsed)) return new Date(parsed);
+
+  return null;
+}
+
 export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'intern-001',

@@ -61,73 +61,107 @@ export default function FilterSidebar({
   //   .filter(l => l !== 'All Locations' && l.toLowerCase() !== 'remote' && l.toLowerCase() !== 'work from home' )
   //   .slice(0, 5);
   const topLocations = availableLocations
-    .filter(l =>
-      l !== 'All Locations' &&
-      !l.toLowerCase().includes('remote') &&
-      !l.toLowerCase().includes('work from home') &&
-      !l.toLowerCase().includes('hybrid') && !l.toLowerCase().includes('ahmedabad')
+    .filter(
+      (l) =>
+        l !== 'All Locations' &&
+        !l.toLowerCase().includes('remote') &&
+        !l.toLowerCase().includes('work from home') &&
+        !l.toLowerCase().includes('hybrid') &&
+        !l.toLowerCase().includes('bikaner') &&
+        !l.toLowerCase().includes('ghaziabad') &&
+        !l.toLowerCase().includes('hyderabad') &&
+        !l.toLowerCase().includes('indore') &&
+        !l.toLowerCase().includes('jaipur') &&
+        !l.toLowerCase().includes('noida') &&
+        !l.toLowerCase().includes('kolkata') &&
+        !l.toLowerCase().includes('lucknow') &&
+        !l.toLowerCase().includes('mohali') &&
+        !l.toLowerCase().includes('dehradun') &&
+        !l.toLowerCase().includes('nagpur') &&
+        !l.toLowerCase().includes('mumbai') &&
+        !l.toLowerCase().includes('pimpri-chinchwad') &&
+        !l.toLowerCase().includes('rajkot') &&
+        !l.toLowerCase().includes('thane') &&
+        !l.toLowerCase().includes('virar') &&
+        !l.toLowerCase().includes('dehradun') &&
+        !l.toLowerCase().includes('chennai') &&
+        !l.toLowerCase().includes('ahmedabad')
     )
     .slice(0, 5);
-  const topSkills = availableSkills.filter(s =>
-    s.toLowerCase().includes('development') ||
-    s.toLowerCase().includes('mern') ||
-    s.toLowerCase().includes('node') ||
-    s.toLowerCase().includes('html') ||
-    s.toLowerCase().includes('python') ||
-    s.toLowerCase().includes('css')).slice(0, 6);
+  const topSkills = availableSkills
+    .filter(
+      (s) =>
+        s.toLowerCase().includes('development') ||
+        s.toLowerCase().includes('mern') ||
+        s.toLowerCase().includes('node') ||
+        s.toLowerCase().includes('html') ||
+        s.toLowerCase().includes('python') ||
+        s.toLowerCase().includes('css')
+    )
+    .slice(0, 6);
+  const displaySkills = topSkills.length > 0 ? topSkills : availableSkills.slice(0, 6);
 
   return (
-    <div className="w-full bg-white rounded-[40px] border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.03)] p-10 mb-16">
-      <div className="flex items-center justify-end mb-4">
+    <div className="w-full bg-white rounded-2xl sm:rounded-[40px] border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.03)] p-4 sm:p-6 lg:p-10 mb-8 sm:mb-12 lg:mb-16">
+      <div className="flex items-center justify-center sm:justify-end mb-3 sm:mb-4">
         <span className="inline-flex items-center px-4 py-2 rounded-full bg-newton-orange-50 text-newton-orange-600 text-[10px] font-black tracking-[0.18em] uppercase border border-newton-orange-100">
           Updated Daily
         </span>
       </div>
-      <div className="flex items-center justify-between mb-12">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 mb-6 sm:mb-12">
         <div className="relative flex-1">
-          <div className="absolute left-7 top-1/2 -translate-y-1/2 text-gray-300">
-            <Search size={24} />
+          <div className="absolute left-4 sm:left-7 top-1/2 -translate-y-1/2 text-gray-300">
+            <Search size={18} />
           </div>
           <input
             type="text"
             placeholder="Search by role, company or keywords..."
             value={filters.keyword}
             onChange={(e) => onFilterChange({ ...filters, keyword: e.target.value })}
-            className="w-full pl-16 pr-8 py-6 bg-white border border-gray-100 rounded-3xl text-gray-600 placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-newton-blue-500/5 focus:border-newton-blue-500/20 transition-all text-xl shadow-sm"
+            className="w-full pl-12 sm:pl-16 pr-4 sm:pr-8 py-4 sm:py-6 bg-white border border-gray-100 rounded-2xl sm:rounded-3xl text-gray-600 placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-newton-blue-500/5 focus:border-newton-blue-500/20 transition-all text-base sm:text-xl shadow-sm"
           />
         </div>
-        {(filters.keyword || filters.location !== 'All Locations' || filters.skills.length > 0 || filters.duration !== 'all' || filters.posted !== 'all' || filters.titleCategory !== '') && (
-          <button
-            onClick={() => onFilterChange({
-              keyword: '',
-              location: 'All Locations',
-              stipendMin: null,
-              stipendMax: null,
-              skills: [],
-              category: 'all',
-              type: 'all',
-              duration: 'all',
-              posted: 'all',
-              titleCategory: '',
-            })}
-            className="ml-6 px-8 py-6 text-sm font-black text-gray-400 hover:text-newton-blue-500 transition-colors uppercase tracking-widest"
-          >
-            Reset Filters
-          </button>
-        )}
+        {(filters.keyword ||
+          filters.location !== 'All Locations' ||
+          filters.skills.length > 0 ||
+          filters.duration !== 'all' ||
+          filters.posted !== 'all' ||
+          filters.titleCategory !== '') && (
+            <button
+              onClick={() =>
+                onFilterChange({
+                  keyword: '',
+                  location: 'All Locations',
+                  stipendMin: null,
+                  stipendMax: null,
+                  skills: [],
+                  category: 'all',
+                  type: 'all',
+                  duration: 'all',
+                  posted: 'all',
+                  titleCategory: '',
+                })
+              }
+              className="ml-0 sm:ml-6 w-full sm:w-auto px-4 py-3 sm:px-8 sm:py-6 text-xs sm:text-sm font-black text-gray-400 hover:text-newton-blue-500 transition-colors uppercase tracking-widest text-center"
+            >
+              Reset Filters
+            </button>
+          )}
       </div>
 
       <div className="space-y-6">
         {/* Location Filter */}
-        <div className="flex items-start gap-8">
-          <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-8">
+          <div className="flex items-center gap-2 w-auto sm:w-32 pt-0 sm:pt-2 shrink-0">
             <MapPin size={16} className="text-newton-blue-500" />
-            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Location</span>
+            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">
+              Location
+            </span>
           </div>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => toggleLocation('All Locations')}
-              className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.location === 'All Locations'
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${filters.location === 'All Locations'
                 ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                 }`}
@@ -136,7 +170,7 @@ export default function FilterSidebar({
             </button>
             <button
               onClick={() => toggleLocation('Work From Home')}
-              className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.location === 'Work From Home'
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${filters.location === 'Work From Home'
                 ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                 }`}
@@ -147,7 +181,7 @@ export default function FilterSidebar({
               <button
                 key={loc}
                 onClick={() => toggleLocation(loc)}
-                className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.location === loc
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${filters.location === loc
                   ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                   : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                   }`}
@@ -159,28 +193,30 @@ export default function FilterSidebar({
         </div>
 
         {/* Expertise Filter */}
-        {/* <div className="flex items-start gap-8">
-          <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-8">
+          <div className="flex items-center gap-2 w-auto sm:w-32 pt-0 sm:pt-2 shrink-0">
             <Briefcase size={16} className="text-newton-orange-500" />
-            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Expertise</span>
+            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">
+              Expertise
+            </span>
           </div>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => onFilterChange({ ...filters, skills: [] })}
-              className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.skills.length === 0
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${filters.skills.length === 0
                 ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                 }`}
             >
               ALL
             </button>
-            {topSkills.map((skill) => {
+            {displaySkills.map((skill) => {
               const isSelected = filters.skills.includes(skill);
               return (
                 <button
                   key={skill}
                   onClick={() => toggleSkill(skill)}
-                  className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${isSelected
+                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${isSelected
                     ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                     }`}
@@ -190,29 +226,40 @@ export default function FilterSidebar({
               );
             })}
           </div>
-        </div> */}
+        </div>
 
         {/* Title Category Filter */}
-        <div className="flex items-start gap-8">
-          <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-8">
+          <div className="flex items-center gap-2 w-auto sm:w-32 pt-0 sm:pt-2 shrink-0">
             <Briefcase size={16} className="text-newton-orange-500" />
-            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Job Titles</span>
+            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">
+              Job Titles
+            </span>
           </div>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => onFilterChange({ ...filters, titleCategory: '' })}
-              className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.titleCategory === ''
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${filters.titleCategory === ''
                 ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                 }`}
             >
               ALL
             </button>
-            {['Development', 'AI', 'Backend', 'Frontend', 'Web', 'Full Stack', 'Software', 'MERN'].map((title) => (
+            {[
+              'Development',
+              'AI',
+              'Backend',
+              'Frontend',
+              'Web',
+              'Full Stack',
+              'Software',
+              'MERN',
+            ].map((title) => (
               <button
                 key={title}
                 onClick={() => onFilterChange({ ...filters, titleCategory: title })}
-                className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${filters.titleCategory === title
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${filters.titleCategory === title
                   ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                   : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                   }`}
@@ -224,10 +271,12 @@ export default function FilterSidebar({
         </div>
 
         {/* Duration Filter */}
-        <div className="flex items-start gap-8">
-          <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-8">
+          <div className="flex items-center gap-2 w-auto sm:w-32 pt-0 sm:pt-2 shrink-0">
             <Clock size={16} className="text-newton-yellow-500" />
-            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Duration</span>
+            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">
+              Duration
+            </span>
           </div>
           <div className="flex flex-wrap gap-3">
             {DURATIONS.map((d) => {
@@ -236,7 +285,7 @@ export default function FilterSidebar({
                 <button
                   key={d.value}
                   onClick={() => onFilterChange({ ...filters, duration: d.value })}
-                  className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${isSelected
+                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${isSelected
                     ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                     }`}
@@ -249,10 +298,12 @@ export default function FilterSidebar({
         </div>
 
         {/* Posted Filter */}
-        <div className="flex items-start gap-8">
-          <div className="flex items-center gap-2 w-32 pt-2 shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-8">
+          <div className="flex items-center gap-2 w-auto sm:w-32 pt-0 sm:pt-2 shrink-0">
             <Calendar size={16} className="text-newton-blue-500" />
-            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">Posted</span>
+            <span className="text-[11px] font-black tracking-[0.15em] text-gray-400 uppercase">
+              Posted
+            </span>
           </div>
           <div className="flex flex-wrap gap-3">
             {POSTED_OPTIONS.map((opt) => {
@@ -261,7 +312,7 @@ export default function FilterSidebar({
                 <button
                   key={opt.value}
                   onClick={() => onFilterChange({ ...filters, posted: opt.value })}
-                  className={`px-6 py-2.5 rounded-full text-[11px] font-black tracking-wider transition-all border ${isSelected
+                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-wider transition-all border ${isSelected
                     ? 'bg-newton-blue-500 text-white border-newton-blue-500 shadow-lg shadow-newton-blue-200'
                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'
                     }`}

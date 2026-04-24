@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { LayoutGrid, List, SlidersHorizontal, ChevronDown } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 
 export type SortOption = 'newest' | 'deadline';
 
@@ -18,13 +18,13 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 ];
 
 export default function SortAndResultsBar({
-  totalResults,
+  totalResults: _totalResults,
   sortBy,
   onSortChange,
   onMobileFilterOpen,
 }: SortAndResultsBarProps) {
   return (
-    <div className="flex items-center justify-between gap-4 bg-white/80 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-border/40 shadow-sm sticky top-[80px] z-20">
+    <div className="flex items-center justify-between gap-4 bg-white/80 backdrop-blur-md px-4 sm:px-5 py-3.5 rounded-2xl border border-border/40 shadow-sm sticky top-[64px] sm:top-[80px] z-20">
       <div className="flex items-center gap-3">
         <button
           onClick={onMobileFilterOpen}
@@ -37,7 +37,9 @@ export default function SortAndResultsBar({
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest hidden xs:block">Sort by</span>
+          <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest hidden sm:block">
+            Sort by
+          </span>
           <div className="relative group">
             <select
               value={sortBy}
@@ -50,7 +52,10 @@ export default function SortAndResultsBar({
                 </option>
               ))}
             </select>
-            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/40 pointer-events-none group-hover:text-primary transition-colors" />
+            <ChevronDown
+              size={14}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/40 pointer-events-none group-hover:text-primary transition-colors"
+            />
           </div>
         </div>
       </div>
