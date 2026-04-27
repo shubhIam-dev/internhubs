@@ -148,6 +148,7 @@ function parseDeadlineDate(deadline: string): Date | null {
 
 function sortInternships(internships: Internship[], sortBy: SortOption): Internship[] {
   const copy = [...internships];
+
   switch (sortBy) {
     case 'newest':
       return copy.sort((a, b) => {
@@ -165,6 +166,7 @@ function sortInternships(internships: Internship[], sortBy: SortOption): Interns
 }
 
 function filterInternships(internships: Internship[], filters: FilterState): Internship[] {
+  console.log(internships)
   return internships.filter((i) => {
     const deadlineDate = parseDeadlineDate(i.deadline);
     if (deadlineDate) {

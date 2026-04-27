@@ -8,8 +8,7 @@ export default function Topbar() {
     { label: 'FLASHCARDS', href: '#' },
     { label: 'ASSIGNMENTS', href: '#' },
     { label: 'EXPERIENCES', href: '#' },
-
-    { label: 'INSIDERS', href: '#' },
+    { label: 'Resources', href: '#' },
   ];
 
   return (
@@ -32,8 +31,8 @@ export default function Topbar() {
               key={link.label}
               href={link.href}
               className={`text-[11px] font-black tracking-[0.15em] transition-all duration-200 hover:text-newton-blue-500 ${link.isHighlight
-                  ? 'px-5 py-2.5 rounded-full bg-newton-blue-50 text-newton-blue-500 hover:bg-newton-blue-100'
-                  : 'text-gray-400'
+                ? 'px-5 py-2.5 rounded-full bg-newton-blue-50 text-newton-blue-500 hover:bg-newton-blue-100'
+                : 'text-gray-400'
                 }`}
             >
               {link.label}

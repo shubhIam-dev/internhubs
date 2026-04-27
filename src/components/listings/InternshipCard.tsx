@@ -19,9 +19,14 @@ function formatDate(dateStr: string): string {
 
 function getTimeAgo(dateStr: string): string {
   if (!dateStr) return 'Recently';
+
   const posted = new Date(dateStr);
-  const now = new Date('2026-04-23'); // Using today's date from env
+  const now = new Date(); // ✅ use current time
+
   const diffMs = now.getTime() - posted.getTime();
+
+  if (diffMs < 0) return 'Recently'; // handle future dates safely
+
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   const diffDays = Math.floor(diffHours / 24);
 
